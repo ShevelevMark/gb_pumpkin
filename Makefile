@@ -10,12 +10,12 @@ SRC:=$(wildcard $(SRC_DIR)/*.c)
 OBJ:=$(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRC))
 
 all: $(OBJ)
-	$(CC) $(OBJ) -o $(BIN_DIR)/drones $(LFLAGS)
+	$(CC) $(OBJ) -o $(BIN_DIR)/pumpkin $(LFLAGS)
 
 $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	$(CC) -c $^ -o $@ $(CFLAGS) $(IFLAGS) -Wall
 
 
 clean:
-	rm $(BIN_DIR)/drones
+	rm $(BIN_DIR)/pumpkin
 	rm $(OBJ)
