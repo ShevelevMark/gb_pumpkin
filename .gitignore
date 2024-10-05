@@ -1,0 +1,7 @@
+#binary
+./bin/**
+!./bin/.hold
+
+#object
+./obj/**
+!./obj/.hold
