@@ -1,5 +1,5 @@
-#ifndef PMK_PUMPKIN_H
-#define PMK_PUMPKIN_H
+#ifndef PMK_PUMPKIN_MODEL_H
+#define PMK_PUMPKIN_MODEL_H
 
 /**
  * @brief Перечисление состояний грядки с тыквой.
@@ -7,12 +7,12 @@
  * PMK_UNRIPE - незрелая тыква 
  * PMK_RIPE   - зрелая тыква
  */
-typedef enum pmk_pumpkin_state {PMK_EMPTY = 0, PMK_UNRIPE, PMK_RIPE} pmk_pumpkin_t;
+typedef enum pmk_pumpkin_state {PMK_EMPTY = 0, PMK_UNRIPE, PMK_RIPE} pmk_pumpkin_state_t;
 
 /**
  * @brief Структура тыквы на грядке. 
  */
-typedef pmk_pumpkin {
+typedef struct pmk_pumpkin {
     unsigned row_pos, col_pos; /**< положение тыквы на поле ряд и колонка */
     pmk_pumpkin_state_t state; /**< состояние тыквы */
 } pmk_pumpkin_t;
@@ -45,4 +45,5 @@ pmk_garden_t pmk_make_garden(unsigned size, int *errcode);
  * @param garden - указатель на структуру набора тыкв
  */
 void pmk_delete_garden(pmk_garden_t *garden);
+
 #endif
