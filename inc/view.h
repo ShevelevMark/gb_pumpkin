@@ -37,4 +37,21 @@ pmk_view_field_t pmk_make_view_field(unsigned row_size, unsigned col_size, int *
  * @param field указатель на структуру pmk_view_field_t
  */
 void pmk_delete_view_field(pmk_view_field_t *field);
+
+/**
+ * @brief Функция печатает на экран ячейки.
+ * Функция вызывает printw из ncurses для вывода содержимого ячеек.
+ * Каждая ячейка печатается со совим знаком и своим цветом.
+ * Между двумя ячейками в строке печатается один пробел. Пробел 
+ * печатается с цветом @param inter_ncolor.
+ * Функция НЕ вызывает refresh().
+ * Если в функцию передана структура с нулевыми размерами,
+ *     field.row_size == 0 && field.col_size == 0,
+ * то функция ничего не выведет в консоль, к массиву ячеек не будет
+ * обращений.
+ * 
+ * @param field структура поля для отображения в консоль
+ * @param inter_ncolor цвет промежуточного пробела между ячейкам
+ */
+void pmk_print_view_field(pmk_view_field_t field, int inter_ncolor);
 #endif

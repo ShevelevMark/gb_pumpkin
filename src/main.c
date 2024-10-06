@@ -24,14 +24,9 @@ int main() {
         for (unsigned col_idx = 0u; col_idx != col_size; ++col_idx)
             field.cells[row_idx][col_idx] = (pmk_view_cell_t){1, '.'};
 
-    for (unsigned row_idx = 0u; row_idx != row_size; ++row_idx) {
-        for (unsigned col_idx = 0u; col_idx != col_size; ++col_idx) {
-            attron(COLOR_PAIR(1));
-            printw("%c", field.cells[row_idx][col_idx].glyph);
-            printw(" ");
-        }
-        printw("\n");
-    }
+   pmk_print_view_field(field, 1);
+   refresh();
+
 END:
     while(ERR == getch());
     pmk_delete_view_field(&field);
