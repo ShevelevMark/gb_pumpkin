@@ -14,7 +14,7 @@ pmk_drone_t pmk_make_drone(unsigned row_pos, unsigned col_pos, unsigned carts_si
     }
 
     *errcode = 0;
-    return (pmk_drone_t){row_pos, col_pos, 0u, 0u, carts_size, NULL};
+    return (pmk_drone_t){row_pos, col_pos, 0u, 0u, carts_size, carts};
 }
 
 void pmk_delete_drone(pmk_drone_t *drone) {
