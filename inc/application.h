@@ -7,7 +7,10 @@
 #include <drone_view.h>
 #include <view.h>
 
+#include <ncurses.h>
+
 #include <stdlib.h>
+#include <time.h>
 
 typedef struct pmk_application_context {
     pmk_garden_t garden;
@@ -17,11 +20,11 @@ typedef struct pmk_application_context {
     pmk_drone_view_t *drone_views;
     pmk_view_field_t view;
     int inter_ncolor;
+    clock_t last_call;
+    double speed;
 } pmk_application_context_t;
 
 pmk_application_context_t pmk_allocate_application(unsigned row_size, unsigned col_size, unsigned drones_count, unsigned *cart_sizes, int *errcode) {
-    
-
     int garden_errcode;
     pmk_garden_t garden = pmk_make_garden(row_size, col_size, &garden_errcode);
     int view_errcode;
@@ -81,6 +84,15 @@ void pmk_free_application(pmk_application_context_t *context) {
     context->drones = NULL;
     pmk_delete_view_field(&context->view);
     pmk_delete_garden(&context->garden);
+}
+
+void pmk_application_advance(pmk_application_context_t *context, clock_t call_time) {
+    static unsigned frame_cnt = 0u;
+    move(0, 0);
+    printw("frame cnt %4u\n", frame_cnt);
+    if ((double)(call_time - context->last_call) / (double)CLOCKS_PER_SEC < 1. / context->speed) return;
+    context->last_call = call_time;
+    ++frame_cnt;
 }
 
 #endif
