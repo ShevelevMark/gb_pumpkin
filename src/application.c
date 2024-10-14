@@ -26,7 +26,7 @@ pmk_application_context_t pmk_allocate_application(unsigned row_size, unsigned c
             drone_errcode = 1;
         } else {
             for (; drone_init_cnt != drones_count; ++drone_init_cnt) {
-                drones[drone_init_cnt] = pmk_make_drone(0u, 0u, cart_sizes[drone_init_cnt], &drone_errcode);
+                drones[drone_init_cnt] = pmk_make_drone(0u, 0u, cart_sizes[drone_init_cnt], NULL, NULL, &drone_errcode);
                 if (0 != drone_errcode)
                    break; 
             }
