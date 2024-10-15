@@ -11,12 +11,6 @@
 #include <ncurses.h>
 #include <stdlib.h>
 
-void swap_pos(unsigned *pa, unsigned *pb) {
-    unsigned tmp = *pa;
-    *pa = *pb;
-    *pb = tmp;
-}
-
 int main() {
     pmk_goround_controller_context_t controller_cntx;
     initscr();
