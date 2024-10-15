@@ -5,6 +5,7 @@
 #include <garden_view.h>
 #include <application.h>
 #include <goround_controller.h>
+#include <utility.h>
 
 #include <time.h>
 #include <ncurses.h>
@@ -54,17 +55,15 @@ int main() {
 
         app_cntx.garden_view = (pmk_garden_view_t){ {{1, '.'}, {1, '~'}, {4, 'o'}, {3, '@'}} };
     }
-    pmk_put_garden(&app_cntx.view, app_cntx.garden, app_cntx.garden_view);
       
     {
-        app_cntx.drones[0].row_pos = 0;
-        app_cntx.drones[0].col_pos = 10;
+        app_cntx.drones[0].pos = (pmk_position_t){0u, 10u};
         app_cntx.drone_views[0] = (pmk_drone_view_t){{2, '#'}, {2, '*'}, {2, '@'}};
 
         pmk_drone_t drone = app_cntx.drones[0];
-        drone.carts[0].row_pos = drone.row_pos; drone.carts[0].col_pos = drone.col_pos + 1; drone.carts[0].is_empty = true;
-        drone.carts[1].row_pos = drone.row_pos; drone.carts[1].col_pos = drone.col_pos + 2; drone.carts[1].is_empty = true;
-        drone.carts[2].row_pos = drone.row_pos; drone.carts[2].col_pos = drone.col_pos + 3; drone.carts[2].is_empty = true;
+        drone.carts[0].pos = pmk_position_advance(drone.pos, (pmk_direction_t){0, 1}); drone.carts[0].is_empty = true;
+        drone.carts[1].pos = pmk_position_advance(drone.carts[0].pos, (pmk_direction_t){0, 1}); drone.carts[1].is_empty = true;
+        drone.carts[2].pos = pmk_position_advance(drone.carts[1].pos, (pmk_direction_t){0, 1}); drone.carts[2].is_empty = true;
 
         controller_cntx.dir = (pmk_direction_t){0, -1};
         controller_cntx.garden = &app_cntx.garden;
@@ -73,7 +72,6 @@ int main() {
         app_cntx.drones[0].advance = pmk_goround_controller_advance;
         app_cntx.drones[0].advance_context = &controller_cntx;
     } 
-    pmk_put_drone(&app_cntx.view, app_cntx.drones[0], app_cntx.drone_views[0]);
     
     app_cntx.inter_ncolor = 1;
     app_cntx.speed = 3.;
