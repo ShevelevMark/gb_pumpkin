@@ -74,10 +74,10 @@ void pmk_free_application(pmk_application_context_t *context) {
 }
 
 void pmk_application_advance(pmk_application_context_t *context, clock_t call_time) {
-    static unsigned frame_cnt = 0u;
-    move(0, 0);
-    printw("frame cnt %4u\n", frame_cnt);
     if ((double)(call_time - context->last_call) / (double)CLOCKS_PER_SEC < 1. / context->speed) return;
     context->last_call = call_time;
-    ++frame_cnt;
+    context->drones[0].advance(&context->drones[0], context->drones[0].advance_context);
+    
+    pmk_put_garden(&context->view, context->garden, context->garden_view);
+    pmk_put_drone(&context->view, context->drones[0], context->drone_views[0]);
 }
