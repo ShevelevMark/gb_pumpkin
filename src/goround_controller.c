@@ -5,7 +5,7 @@ void pmk_goround_controller_advance(pmk_drone_t *drone, void *cntx_ptr) {
     if (cntx->is_invalid_state) return;
 
     pmk_direction_t on_the_left = pmk_direction_rotate_ccw(cntx->dir);
-    if (!pmk_position_is_reachable(pmk_position_t drone->pos, (pmk_position_t){cntx->garden->row_size, cntx->garden->col_size}, on_the_left)) { 
+    if (!pmk_position_is_reachable(drone->pos, (pmk_position_t){cntx->garden->row_size, cntx->garden->col_size}, on_the_left)) { 
         cntx->is_invalid_state = true; 
         return; 
     }
