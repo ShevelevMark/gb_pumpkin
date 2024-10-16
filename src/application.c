@@ -26,7 +26,7 @@ pmk_application_context_t pmk_allocate_application(unsigned row_size, unsigned c
             drone_errcode = 1;
         } else {
             for (; drone_init_cnt != drones_count; ++drone_init_cnt) {
-                drones[drone_init_cnt] = pmk_make_drone((pmk_position_t){0u, 0u}, cart_sizes[drone_init_cnt], NULL, NULL, &drone_errcode);
+                drones[drone_init_cnt] = pmk_allocate_drone(art_sizes[drone_init_cnt], &drone_errcode);
                 if (0 != drone_errcode)
                    break; 
             }
@@ -66,7 +66,7 @@ void pmk_free_application(pmk_application_context_t *context) {
     free(context->drone_views);
     context->drone_views = NULL;
     for (unsigned idx = 0u; idx != context->drones_count; ++idx)
-        pmk_delete_drone(context->drones + idx);
+        pmk_free_drone(context->drones + idx);
     free(context->drones);
     context->drones = NULL;
     pmk_delete_view_field(&context->view);
