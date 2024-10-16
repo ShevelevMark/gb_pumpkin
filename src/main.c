@@ -52,7 +52,8 @@ int main() {
       
     {
         app_cntx.drones[0].pos = (pmk_position_t){0u, 10u};
-        app_cntx.drone_views[0] = (pmk_drone_view_t){{2, '#'}, {2, '*'}, {2, '@'}};
+        app_cntx.drone_views[0] = (pmk_drone_view_t){{2, '#'}, {2, '?'}, {2, '*'}, {2, '@'}};
+        app_cntx.drones[0].is_unexpected = false;
 
         pmk_drone_t drone = app_cntx.drones[0];
         drone.carts[0].pos = pmk_position_advance(drone.pos, (pmk_direction_t){0, 1}); drone.carts[0].is_empty = true;
@@ -61,7 +62,6 @@ int main() {
 
         controller_cntx.dir = (pmk_direction_t){0, -1};
         controller_cntx.garden = &app_cntx.garden;
-        controller_cntx.is_invalid_state = false;
 
         app_cntx.drones[0].advance = pmk_goround_controller_advance;
         app_cntx.drones[0].advance_context = &controller_cntx;
