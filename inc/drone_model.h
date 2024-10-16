@@ -38,23 +38,20 @@ typedef struct pmk_drone {
 } pmk_drone_t;
 
 /**
- * @brief Функция создания нового дрона с набором тележек.
- * Функция создаёт нового дрона в определённой позиции с нулевой скоростью.
+ * @brief Функция выделения памяти для нового дрона с набором тележек.
  * Функция выделяет память под @param carts_size количество тележек.
  * Если выделить память не удаётся, то @param errcode перезаписывается в 1.
- * Если количество тележек равно нулю, то память не выделяется.
+ * Если количество тележек равно нулю, то память не выделяется, вызов
+ * считается успешным.
  * В случае успеха @param errcode перезаписывается в 0.
  * Если выделить память не удаётся или количество тележек равно нулю,
  * поле carts получает значение NULL.
  * 
- * @param pos                      - начальное положение дрона (головы поезда тележек) 
  * @param carts_size               - количество тележек
- * @param advance_strategy         - указатель на функцию работы дрона, может быть NULL
- * @param advance_strategy_context - указатель на контекст функции работы дрона, может быть NULL
  * @param errcode                  - указатель на целое число, в которое записывается код ошибки
  * @return pmk_drone_t структура дрона 
  */
-pmk_drone_t pmk_make_drone(pmk_position_t init_pos, unsigned carts_size, pmk_drone_advance_t advance_strategy, void *advance_strategy_context, int *errcode);
+pmk_drone_t pmk_allocate_drone(unsigned carts_size,int *errcode);
 
 /**
  * @brief Функция удаления памяти, выделенной под тележки.
@@ -63,6 +60,6 @@ pmk_drone_t pmk_make_drone(pmk_position_t init_pos, unsigned carts_size, pmk_dro
  * 
  * @param drone указатель на структуру дрона 
  */
-void pmk_delete_drone(pmk_drone_t *drone);
+void pmk_free_drone(pmk_drone_t *drone);
 
 #endif
