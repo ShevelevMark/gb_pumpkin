@@ -26,7 +26,7 @@ pmk_application_context_t pmk_allocate_application(unsigned row_size, unsigned c
             drone_errcode = 1;
         } else {
             for (; drone_init_cnt != drones_count; ++drone_init_cnt) {
-                drones[drone_init_cnt] = pmk_allocate_drone(art_sizes[drone_init_cnt], &drone_errcode);
+                drones[drone_init_cnt] = pmk_allocate_drone(cart_sizes[drone_init_cnt], &drone_errcode);
                 if (0 != drone_errcode)
                    break; 
             }
@@ -53,7 +53,7 @@ pmk_application_context_t pmk_allocate_application(unsigned row_size, unsigned c
     free(drone_views);
     application_context.drone_views = NULL;
     for (unsigned idx = 0u; idx != drone_init_cnt; ++idx)
-            pmk_delete_drone(drones + idx);
+            pmk_free_drone(drones + idx);
     free(drones);
     application_context.drones = NULL;
     pmk_delete_view_field(&view);
